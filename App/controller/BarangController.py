@@ -6,12 +6,15 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 # from flaskr.db import get_db
+from ..database.db import tes
 
 bp = Blueprint('BarangController', __name__, url_prefix='/barang')
 
 @bp.route('', methods=('GET', 'POST'))
 def register():
+    data=None
     if request.method == 'POST':
+        
         return "post"
         # username = request.form['username']
         # password = request.form['password']
@@ -36,5 +39,5 @@ def register():
         #         return redirect(url_for("auth.login"))
 
         flash(error)
-
-    return "addit"
+    data=tes()
+    return data, 200, {'ContentType': 'application/json'}

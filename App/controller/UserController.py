@@ -4,7 +4,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from werkzeug.security import check_password_hash, generate_password_hash
-
+import App
 # db
 bp = Blueprint('UserController', __name__, url_prefix='/')
 
@@ -33,8 +33,8 @@ def register():
                 error = f"User {username} is already registered."
 
         flash(error)
-
-    return 'data', 200, {'ContentType': 'application/json'}
+    
+    return request.json, 200, {'ContentType': 'application/json'}
 
 
 @bp.route('/user', methods=('GET', 'POST'))
