@@ -5,8 +5,7 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
-# from flaskr.db import get_db
-from ..database.db import tes
+from ..database.db import db
 
 bp = Blueprint('BarangController', __name__, url_prefix='/barang')
 
@@ -39,5 +38,13 @@ def register():
         #         return redirect(url_for("auth.login"))
 
         flash(error)
-    data=tes()
+    result = db.engine.execute(
+            "select * from barang")
+    aData = [{"id": row[0], "kode_barang":row[1],
+                  "nama_barang":row[2], "harga":row[3], "stok":row[4]} for row in result]
+    data = {
+            "message": "Get all barang",
+            "aData": aData
+        }
+
     return data, 200, {'ContentType': 'application/json'}
